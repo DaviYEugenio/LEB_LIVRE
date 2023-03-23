@@ -1,0 +1,45 @@
+<div class="modal novo-modal" id="modalQuestao" tabindex="-1" role="dialog" aria-labelledby="ariaQuestao"
+  aria-hidden="true">
+  <div class="modal-content">
+    <div class="modal-header">
+      <div class="container">
+        <div layout="row" layout-align="center center">
+          <h4 class="modal-title" id="ariaQuestao">Questão</h4>
+        </div>
+      </div>
+    </div>
+
+    <div class="modal-body">
+      <div class="container">
+        <!--<h3>Enunciado</h3>-->
+        <div class="modal-box-questao modal-questao-enunciado">
+          <span class="span_geral">{{enunciado}}</span>
+          <span class="span_geral" [innerHTML]="conteudo" style="max-width: 100%"></span>
+          <br>
+          <span class="span_geral color-blue" [innerHTML]="resposta"></span>
+        </div>
+        <div class="palavra_chave" ng-show="questao.Tags.length">
+          <h6>Palavras-chave</h6>
+          <div class="modal-questao-resposta">
+            <span [innerHTML]="enunciado"></span>
+          </div>
+        </div>
+
+      </div>
+    </div>
+    <div class="modal-footer btns-bottom-navigation">
+      <div class="container">
+        <div layout="row justify-content-between">
+          <div class="col">
+            <button type="button" class="btn btn-fechar" data-bs-dismiss="modal" aria-label="Close"
+              (click)="closeModal()">Fechar sem salvar</button>
+            <button type="button" class="btn btn-inserir float-right" data-bs-dismiss="modal"
+              [hidden]="btnRemoverQuestao == true" (click)="addQuestao(questao)">Inserir na prova</button>
+            <button type="button" class="btn btn-remove float-right" data-bs-dismiss="modal"
+              [hidden]="btnRemoverQuestao != true" (click)="removerQuestaoProva()">Remover da prova</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

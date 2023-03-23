@@ -1,0 +1,33 @@
+<nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3">
+  <div class="container">
+    <div class="nav">
+      <div routerLink="/" class="navbar_logo" ><img src="../../assets/img/leb-logo.svg" alt=""></div>
+      <div class="v-line"></div>
+      <div class="acessolivre">
+        <img  class="acesso" src="assets/img/acesso-livre@2x.png" alt="">
+      </div>
+    </div>
+    <div class="link_menu">
+      <a routerLink="/" (click)="bq()" class="link_bq">Banco de questões</a>
+      <a routerLink="/" (click)="materiais()" class="link_materiais">Materiais digitais</a>
+      <a routerLink="/" class="link_contato" (click)="contato()">Fale conosco</a>
+    </div>
+    <div class="btns">
+      <button [hidden]="islogged == true" type="button"  class="btn btn_cadastro" (click)="ModalCadastro()">Cadastre-se</button>
+      <button [hidden]="islogged == true" type="button" class="btn btn_login" (click)="ModalEntrar()">Entrar</button>
+      <button [hidden]="islogged == false" type="button" class="btn btn_sair" (click)="logout()">Sair</button>
+    </div>
+    <button class="btn_menu" (click)="OpenMenu()"> <i class="material-icons md-24">menu</i></button>
+    </div>
+
+</nav>
+<div class="control">
+</div>
+<div class="menu_mobile" >
+<app-modal_menu></app-modal_menu>
+</div>
+
+
+
+
+

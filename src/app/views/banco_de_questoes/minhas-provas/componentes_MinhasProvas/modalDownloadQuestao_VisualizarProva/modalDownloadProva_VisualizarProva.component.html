@@ -1,0 +1,63 @@
+<div class="modal modal-visualizar-prova novo-modal" id="modalDownloadProva" tabindex="-1" role="dialog" aria-labelledby="ariaDownloadProva" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+      <div class="modal-content">
+
+          <div class="modal-header">
+              <div class="container">
+                  <div layout="row" layout-align="center center">
+                      <h4 class="modal-title" id="downloadProva">Deseja fazer o download da prova?</h4>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-body finalizado">
+              <div class="container">
+                  <div class="box-maior-download">
+                      <p class="titulo-download">Selecione em qual formato deseja realizar o download de sua prova:</p>
+                      <div class="row justify-content-center">
+                          <div class="col-xs-12 col-md-5">
+                              <div class="box-menor-download">
+                                  <div class="row align-items-center justify-content-center">
+                                      <div class="col-4 col-md-4">
+                                          <div class="">
+                                              <img src="../../../../../../assets/img/doc.png" class="img-fluid" />
+                                          </div>
+                                      </div>
+                                      <div class="col-6 col-md-6">
+                                              <button class="btn btn-com-gabarito" (click)="downloadProvaDOC(true)">Com gabarito</button>
+                                              <button class="btn btn-sem-gabarito" (click)="downloadProvaDOC(false)">Sem gabarito</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                          <div class="col-xs-12 col-md-5">
+                              <div class="box-menor-download">
+                                  <div class="row align-items-center justify-content-center">
+                                      <div class="col-4 col-md-4">
+                                          <div class="">
+                                              <img src="../../../../../../assets/img/pdf.png" class="img-fluid" />
+                                          </div>
+                                      </div>
+                                      <div class="col-6 col-md-6">
+                                              <button class="btn btn-com-gabarito" (click)="downloadProvaPDF(true)" data-dismiss="modal">Com gabarito</button>
+                                              <button class="btn btn-sem-gabarito" (click)="downloadProvaPDF(false)" data-dismiss="modal">Sem gabarito</button>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+          <div class="modal-footer btns-bottom-navigation">
+              <div class="container">
+                  <div layout="row" layout-align="center center">
+                      <div flex>
+                          <button type="button" class="btn btn-secondary pull-right" data-dismiss="modal" ng-click="modalToggle('modalDownloadProva', false)">Fechar</button>
+                      </div>
+                  </div>
+              </div>
+          </div>
+
+      </div>
+  </div>
+</div>

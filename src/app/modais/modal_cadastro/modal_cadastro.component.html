@@ -1,0 +1,161 @@
+<div class="modal" id="modal_cadastro" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static">
+  <div class="modal-dialog">
+      <div class="modal-body">
+        <div class="modal-content">
+        <div class="cadastro" layout="row" layout-align="center center">
+          <div class="titulo__cadastro">
+            <h1>Cadastro</h1>
+            <h4>Exclusivo para professores</h4>
+            <hr>
+          </div>
+          <a href="#" ng-click="btnSair()" class="close" data-dismiss="modal"><i
+              class="material-icons md-24">close</i></a>
+        </div>
+        <form name="formLogin" (ngSubmit)="Cadastrar()">
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Nome completo*</label>
+              <input type="text" class="form-control" id="Name" required [(ngModel)]="Nome" name="Nome"
+                placeholder="Digite o seu nome completo" (click)="validacaoName()" (blur)="validacaoName()" />
+              <label  class="alert_aviso aviso" >*Campo Obrigatório</label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">E-mail*</label>
+              <input type="email" class="form-control" id="Email" required [(ngModel)]="Email" name="Email"
+                placeholder="Digite o seu e-mail" (click)="validacaoEmail()" (blur)="validacaoEmail()" [email]="true"/>
+              <label class="alert_aviso aviso1" >*Campo Obrigatório</label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Celular</label>
+              <input type="text" class="form-control" id="Cell" mask="(00) 00000-0000" placeholder="(00) 00000-0000" [(ngModel)]="Celular" name="Celular"/>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Selecione a Rede:</label>
+                <input hidden id="cbx_publica" type="radio" value="2" class="form-control" name="Rede" [(ngModel)]="Rede"><label class="cbx cbx_publica" for="cbx_publica"><p class="texto_cbx">Pública</p></label>
+                <input hidden id="cbx_particular" type="radio" value="1" class="form-control" name="Rede" [(ngModel)]="Rede"><label class="cbx cbx_particular" for="cbx_particular"><p class="texto_cbx">Particular</p></label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Escola/Secretaria</label>
+              <input class="form-control" id="Escola" name="Escola" [(ngModel)]="Escola" placeholder="Escreva o nome da escola"/>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label label_segmento">Qual(is) segmento(s) sua escola possui?</label>
+                <input hidden id="cbx_EdInf" type="radio" value="0" name="Segmento" [(ngModel)]="Segmento" class="form-control"><label class="cbx cbx_EdInf" for="cbx_EdInf"><p class="texto_cbx">Educação infantil</p></label>
+                <input hidden id="cbx_AnoIni" type="radio" value="1" name="Segmento" [(ngModel)]="Segmento" class="form-control"><label class="cbx cbx_AnoIni" for="cbx_AnoIni"><p class="texto_cbx">Anos iniciais do Ensino Fundamental</p></label>
+                <input hidden id="cbx_AnoFin" type="radio" value="5" name="Segmento" [(ngModel)]="Segmento" class="form-control"><label class="cbx cbx_AnoFin" for="cbx_AnoFin"><p class="texto_cbx">Anos finais do Ensino Fundamental</p></label>
+                <input hidden id="cbx_Medio" type="radio" value="9" name="Segmento" [(ngModel)]="Segmento" class="form-control"><label class="cbx cbx_Medio" for="cbx_Medio"><p class="texto_cbx">Ensino Médio</p></label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Estado</label>
+              <input class="form-control" id="Estado" name="Estado" required  [(ngModel)]="Estado" placeholder="Digite seu estado" />
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Cidade</label>
+              <input class="form-control" id="Cidade" name="Cidade" [(ngModel)]="Cidade" placeholder="Digite sua cidade" />
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Cargo</label>
+                <input hidden id="cbx_Prof" type="radio" name="Cargo" [(ngModel)]="Cargo" value="P" class="form-control"><label class="cbx cbx_Prof" for="cbx_Prof"><p class="texto_cbx">Professor</p></label>
+                <input hidden id="cbx_Coordenador" type="radio" name="Cargo" [(ngModel)]="Cargo" value="C" class="form-control"><label class="cbx cbx_Coordenador" for="cbx_Coordenador"><p class="texto_cbx">Coordenador</p></label>
+                <input hidden id="cbx_Gestor" type="radio" name="Cargo" [(ngModel)]="Cargo" value="G" class="form-control"><label class="cbx cbx_Gestor" for="cbx_Gestor"><p class="texto_cbx">Gestor</p></label>
+                <input hidden id="cbx_Outra" type="radio" name="Cargo" [(ngModel)]="Cargo" value="O" class="form-control"><label class="cbx cbx_Outra" for="cbx_Outra"><p class="texto_cbx">Outra..</p></label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12" >
+              <label class="control-label label_checkbox">Deseja receber comunicações via WHATSAPP?</label>
+                <input hidden id="cbx_Sim" type="radio" name="Comunicacao_Whatsapp" [(ngModel)]="Comunicacao_Whatsapp" [value]="true" class="form-control" ><label class="cbx cbx_Sim" for="cbx_Sim"><p class="texto_cbx">Sim</p></label>
+                <input hidden id="cbx_Nao" type="radio" name="Comunicacao_Whatsapp" [(ngModel)]="Comunicacao_Whatsapp" [value]="false" class="form-control"><label class="cbx cbx_Nao" for="cbx_Nao"><p class="texto_cbx">Não</p></label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12" >
+              <label class="control-label label_checkbox">Deseja receber comunicações via E-MAIL MARKETING?</label>
+                <input hidden id="cbx_Sim_email" type="radio" name="Comunicacao_Email_Marketing" [(ngModel)]="Comunicacao_Email_Marketing" [value]="true" class="form-control" ><label class="cbx cbx_Sim_email" for="cbx_Sim_email"><p class="texto_cbx">Sim</p></label>
+                <input hidden id="cbx_Nao_email" type="radio" name="Comunicacao_Email_Marketing" [(ngModel)]="Comunicacao_Email_Marketing" [value]="false" class="form-control"><label class="cbx cbx_Nao_email" for="cbx_Nao_email"><p class="texto_cbx">Não</p></label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12" >
+              <label class="control-label label_correios">Deseja receber materiais via CORREIOS?</label>
+              <p class="texto_correio">Para sua comodidade, estamos solicitando o seu endereço residencial para que possamos enviar materiais da Editora do Brasil, referentes aos nossos produtos e serviços. Não esqueça de colocar: Rua/Avenida; Número; Complemento (apto, casa).</p>
+                <input hidden id="cbx_Sim_correio" type="radio" name="Receber_Materiais_Correios" [(ngModel)]="Receber_Materiais_Correios" [value]="true" class="form-control" ><label class="cbx cbx_Sim_correio" for="cbx_Sim_correio"><p class="texto_cbx">Sim</p></label>
+                <input hidden id="cbx_Nao_correio" type="radio" name="Receber_Materiais_Correios" [(ngModel)]="Receber_Materiais_Correios" [value]="false" class="form-control"><label class="cbx cbx_Nao_correio" for="cbx_Nao_correio"><p class="texto_cbx">Não</p></label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">CEP da residência</label>
+              <input class="form-control"  id="Cep" name="CEP" mask="00000-000" [(ngModel)]="CEP"  placeholder="Digite o CEP" (click)="validacaoCep()" (blur)="validacaoCep()"/>
+              <label  class="alert_aviso aviso3" >*Campo Obrigatório</label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Endereço</label>
+              <input class="form-control" id="Endereco" name="Logradouro" [(ngModel)]="Logradouro" placeholder="Digite o nome da rua ou avenida" (click)="validacaoEndereco()" (blur)="validacaoEndereco()"/>
+              <label  class="alert_aviso aviso4" >*Campo Obrigatório</label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Bairro</label>
+              <input class="form-control" id="Bairro" name="Bairro" [(ngModel)]="Bairro" placeholder="Digite o bairro" (click)="validacaoBairro()" (blur)="validacaoBairro()"/>
+              <label  class="alert_aviso aviso5" >*Campo Obrigatório</label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-5">
+              <label class="control-label">Número</label>
+              <input class="form-control" id="Numero" name="Numero_Residencia" [(ngModel)]="Numero_Residencia" placeholder="Número da Residência" (click)="validacaoNumero()" (blur)="validacaoNumero()"/>
+              <label  class="alert_aviso aviso6" >*Campo Obrigatório</label>
+            </div>
+            <div class="form-group col-md-7">
+              <label class="control-label">Complemento</label>
+              <input class="form-control" id="Complemento" name="Complemento" [(ngModel)]="Complemento" placeholder="Apt/Casa"/>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">Senha*</label>
+              <input type="password" class="form-control" id="Senha" required [(ngModel)]="Senha" name="Senha"
+                placeholder="Digite a sua senha" (click)="validacaoSenha()" (blur)="validacaoSenha()"/>
+                <label  class="alert_aviso aviso2" >*Campo Obrigatório</label>
+            </div>
+          </div>
+          <div class="form-row ">
+            <div class="form-group col-md-12 class_termo">
+              <h2 class="titulo_termo">Termo de Consentimento</h2>
+              <p class="texto_termo">Ao preencher este formulário, dou o meu consentimento (que poderá ser revogado a qualquer tempo) para que os meus dados pessoais sejam coletados e tratados exclusivamente pela Editora do Brasil com a finalidade de receber notícias, publicidade personalizada sobre seus produtos, serviços ou outras informações; melhoria de seus produtos e serviços através da análise dos dados fornecidos; em conformidade com os termos do Aviso de Privacidade da empresa ( <a style="color: #595959; text-decoration: underline;" href="https://conteudos.editoradobrasil.com.br/politicas/politicas-de-cookies-e-privacidade.pdf">clique aqui para acessar</a> ).</p>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12 d-md-flex justify-content-md-center">
+              <button type="submit" class="btn_Cadastro" id="btnCadastrar" (click)="VerificarTodos()">Criar conta</button>
+            </div>
+            <div id="Alerta" class="alert_validacao"><p class="text_alert">Preencha os campos obrigatórios.</p></div>
+            <div id="AlertEmailCadastrado" class="alert_validacao"><p class="text_alert">E-mail já cadastrado ou não existe.</p></div>
+            <div id="AlertApiTimeout" class="alert_validacao"><p class="text_alert">Nosso sistema está temporariamente fora do ar.</p></div>
+          </div>
+        </form>
+        <p class="texto_cadastre">Já tenho cadastro.<a id="logar" class="link_login"> Fazer login</a></p>
+      </div>
+    </div>
+  </div>
+</div>

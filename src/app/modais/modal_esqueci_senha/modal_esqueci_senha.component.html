@@ -1,0 +1,33 @@
+<div class="modal" id="modal_esqueci" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" >
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-body">
+        <div class="login" layout="row" layout-align="center center">
+          <div class="titulo__login">
+            <h1 >Esqueceu a senha?</h1>
+            <h4>Digite seu e-mail abaixo para recebê-la:</h4>
+            <hr>
+          </div>
+          <a href="#" class="close" data-dismiss="modal" ><i class="material-icons md-24" >close</i></a>
+        </div>
+
+        <form name="formEsqueci" (submit)="recuperarSenha()" ng-hide="">
+          <div class="form-row ">
+            <div class="form-group col-md-12">
+              <label class="control-label">E-mail</label>
+              <input class="form-control" id="EmailEsqueci" name="Email"  [(ngModel)]="email"  required placeholder="Digite o seu e-mail"/>
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group col-md-12 d-md-flex justify-content-md-center">
+              <button type="submit" class="btn_login" id="btnEnviarSenha">Enviar</button>
+            </div>
+            <div id="alert-rec-senha" class="alert alert-success" role="alert">Sua senha foi enviada para seu e-mail.</div>
+            <div id="alert-rec-senha-nao" class="alert_validacao"><p class="text_alert">E-mail não cadastrado.</p></div>
+          </div>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+

@@ -1,0 +1,203 @@
+.login{
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-around;
+}
+.titulo__login{
+  display: block;
+    margin-left: auto;
+    margin-right: auto;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 32px;
+  line-height: 38px;
+  color: #93C547;
+}
+h1{
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 800;
+  font-size: 32px;
+  line-height: 38px;
+  margin-bottom: 0;
+}
+h4 {
+  color: #192A6B;
+  font-size: 16px;
+  line-height: 32px;
+  margin-bottom: 0;
+}
+.modal-content{
+  border: 10px solid white;
+}
+
+hr{
+  border: 2px solid #192A6B;
+  width: 45px;
+}
+
+.recuperar_senha{
+margin-left: 41px;
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 16px;
+
+color: #868686;
+}
+.btn_login{
+margin-top: 10px;
+width: 352px;
+height: 48px;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 12px 32px;
+  background: #192A6B;
+  border-radius: 8px;
+  color:white;
+}
+.btn_login:hover{
+  background: #93C547;
+  color: #fff;
+}
+.texto_cadastre{
+  width: 199px;
+height: 16px;
+left: 541px;
+top: 560px;
+
+font-family: Roboto;
+font-style: normal;
+font-weight: normal;
+font-size: 14px;
+line-height: 16px;
+
+color: #192A6B;
+display: block;
+margin-left: auto;
+margin-right: auto;
+}
+.link_cadastro{
+  color: #93C547 !important;
+  cursor: pointer;
+}
+.form-row{
+  width: 352px;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: auto;
+  margin-bottom: auto;
+}
+label{
+  margin-left: 8px;
+  font-family: Roboto;
+  font-style: normal;
+  font-weight: normal;
+  font-size: 16px;
+  line-height: 19px;
+  color: #192A6B;
+}
+input{
+  display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 22px 15px 22px 16px;
+background: #FFFFFF;
+border: 1px solid #DEDEDE;
+box-sizing: border-box;
+border-radius: 8px;
+}
+.alert_validacao{
+  width: 100%;
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  margin-left: 5px;
+  margin-right: 5px;
+  gap: 10px;
+  background: rgba(252, 16, 16, 0.31);
+border-radius: 8px;
+margin-bottom: 25px;
+}
+.text_alert{
+  margin-top: 8px;
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 400;
+  font-size: 16px;
+  line-height: 19px;
+  color: #FF0404;
+}
+#alert-rec-senha, #alert-rec-senha-nao {
+  display: none;
+}
+
+.alert-success {
+  background: rgba(147, 197, 71, 0.16);
+  border-radius: 8px;
+  color: #93C547;
+  font-size: 16px;
+  line-height: 19px;
+  width: 100%;
+  text-align: center;
+  border-color: rgba(147, 197, 71, 0.16);
+  margin-right: 5px;
+  margin-left: 5px;
+}
+
+@media (max-width: 1086px)
+{
+  .modal{
+    width: 50%;
+    margin-top: -8px;
+  }
+}
+@media (max-width: 764px)
+{
+  .modal {
+    height: 1000vw;
+    width: 100vw;
+    border-radius: 0px;
+    margin-top: -108px;
+    }
+    .login{
+      margin-top: 110px;
+    }
+    .btn_login{
+      margin-left: auto;
+      margin-right: auto;
+    }
+}
+@media (max-width: 536px)
+{
+  .btn_login{
+    margin-left: auto;
+    margin-right: auto;
+  }
+}
+@media (max-width: 400px)
+{
+  .btn_login{
+    margin-left: -13px;
+    margin-right: auto;
+  }
+}
+@media (max-width: 300px)
+{
+    .form-row{
+      width: 242px;
+
+    }
+  .btn_login{
+    width: 242px;
+    margin-left: -13px;
+    margin-right: auto;
+  }
+}
+

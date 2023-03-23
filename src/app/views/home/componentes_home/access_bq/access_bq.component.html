@@ -1,0 +1,14 @@
+<div id="bq" class="espaco_bq">
+  <img class="img_bq" src="../../assets/img/img-banco-de-questoes.png" alt="">
+  <img class="img_bq_mobile" src="../../assets/img/mobile.png" alt="">
+  <div class="responsivo">
+  <h1>Banco de questões com mais de 20.000 questões cadastradas!</h1>
+  <div class="btns">
+  <a routerLink="banco_de_questoes" [ngClass]="islogged == false ? 'sem_login' : ''" type="button" class="access" id="btnAccess">Acesse o banco de questões</a>
+  <a [hidden]="islogged == true" (click)="openCadastro()" type="button" class="access" id="btnAccessCadastro">Cadastre-se</a>
+  </div>
+  </div>
+</div>
+
+
+

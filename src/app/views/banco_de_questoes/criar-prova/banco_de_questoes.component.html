@@ -1,0 +1,469 @@
+<div id="loading" style="display:none">
+  <div class="loading-content" layout="row" layout-sm="column" layout-align="space-around"></div>
+  <div class="spinner-border text-light" role="status">
+    <span class="sr-only">Loading...</span>
+  </div>
+</div>
+<div class="bqnovo-content">
+  <div class="dropdown nav-horizontal-bq menuHorizontalItemBanco"
+    aria-hidden="false" style="display: block;">
+    <div class="dropdown-content dropdown-content-02">
+      <div layout="row" layout-align="center center" class="layout-align-center-center layout-row">
+        <div>
+          <a routerLink="/banco_de_questoes" (click)="changeNavItem('banco-de-questoes')"
+            class="md-button md-ink-ripple" [ngClass]="currentNavItem === 'banco-de-questoes' ? 'menu-ativo' : ''">
+            Criar prova
+          </a>
+          <a routerLink="/minhas-provas" (click)="changeNavItem('minhas-provas')" class="md-button md-ink-ripple" [ngClass]="currentNavItem === 'minhas-provas' ? 'menu-ativo' : ''">
+            Minhas provas
+          </a>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div id="painelProva" class="painelProva" *ngIf="!provaFinalizada">
+    <div layout="row" class="page-title title_bq">
+      <div class="container conteudo_titulo hide-xs">
+        <h1 class="page-bq-novo">Banco de Questões</h1>
+        <p class="questoes-cadastradas">Total de <b>{{totalQuestoes}}</b> questões</p>
+      </div>
+      <div class="container show-xs">
+        <h1 class="page-bq-novo">Banco de Questões</h1>
+        <p class="questoes-cadastradas">Total de <b>{{totalQuestoes}}</b> questões</p>
+      </div>
+    </div>
+    <div class="container">
+      <div layout="column" class="md-inline-form">
+        <div class="row show-xs tutorial-xs" style="margin-top: 25px" [hidden]="serieSelected != -8">
+          <div class="col-12">
+            <div class="row">
+              <div class="col-12 text-center">
+                <img src="../../../assets/img/icon-inicial.png" class="img-fluid" />
+              </div>
+              <div class="col-12 text-center">
+                <p>Bem-vindo (a)!<br>Filtre para iniciar a navegação<br>no <b>banco de questões.</b></p>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-4 col-lg-3">
+            <label for="bq-seg" class="form-label">Segmento</label>
+            <select class="form-select" id="bq-seg" aria-label="bq-seg"
+              [ngClass]="segmentoSelected == -1 ? 'form-select-ativo' : ''" [(ngModel)]="segmentoSelected"
+              (change)="changeSegmento()">
+              <option selected="selected" value="-1">Selecionar</option>
+              <option *ngFor="let segmento of segmentos" value="{{segmento.segmentos}}">{{segmento.nome}}</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-lg-3">
+            <label for="bq-comp" class="form-label"
+              [ngClass]="segmentoSelected == -1 ? 'label-disabled' : ''">Componente curricular</label>
+            <select class="form-select" id="bq-comp" aria-label="bq-comp"
+              [ngClass]="segmentoSelected != -1 && componenteSelected == -1 ? 'form-select-ativo' : ''"
+              [(ngModel)]="componenteSelected" disabled="{{segmentoSelected == '-1'}}" (change)="changeComponente()">
+              <option value="-1">Selecionar</option>
+              <option *ngFor="let componente of componentes" value="{{componente.id}}">{{componente.materia}}</option>
+            </select>
+          </div>
+          <div class="col-md-4 col-lg-3">
+            <label for="bq-serie" class="form-label"
+              [ngClass]="componenteSelected == -1 ? 'label-disabled' : ''">Ano/Série</label>
+            <select class="form-select" id="bq-serie" aria-label="bq-serie"
+              [ngClass]="segmentoSelected != -1 && componenteSelected != -1 && serieSelected == -8 ? 'form-select-ativo' : ''"
+              [(ngModel)]="serieSelected" disabled="{{componenteSelected == '-1'}}" (change)="changeSerie()">
+              <option value="-8">Selecionar</option>
+              <option *ngFor="let serie of series" value="{{serie.id}}">{{serie.nomeSerie}}</option>
+            </select>
+          </div>
+        </div>
+        <div class="row hide_mobile" style="margin-top: 25px" [hidden]="serieSelected != -8">
+          <div class="col-md-3 col-lg-2 text-center">
+            <img src="../../../assets/img/arrow-tutorial.png" class="img-fluid" [hidden]="segmentoSelected != -1" />
+          </div>
+          <div class="col-md-6 col-lg-8">
+            <div class="box-tutorial">
+              <div class="row">
+                <div class="col-xs-12 col-lg-4">
+                  <img src="../../../assets/img/icon-inicial.png" class="img-fluid" />
+                </div>
+                <div class="col-xs-12 col-lg-8">
+                  <p>Bem-vindo(a)!</p>
+                  <p>Filtre sua busca para iniciar a navegação dentro do <b>banco de questões</b> e elabore sua prova de
+                    forma simples e prática.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="row busca gy-2 gx-3 align-items-center" [hidden]="serieSelected == -8">
+          <div class="col-12 col-lg-6">
+            <div class="input-group input-palavra-chave">
+              <input type="text" class="form-control" id="palavraChave" placeholder="Ex.: Temperatura"
+                [(ngModel)]="palavraChave" />
+              <span class="input-group-text" id="basic-addon2"><i class="material-icons md-24" style="cursor: pointer;"
+                  (click)="getQuestoesPalavraChave()">search</i></span>
+            </div>
+          </div>
+          <div class="col-12 col-lg-6">
+              <div class="input-group">
+                <button type="button" class="btn btn-visualizar-prova btn-primary"
+                  (click)="openModalVisualizarProva()"><span class="material-icons">visibility</span> Visualizar
+                  Prova <div class="total-questoes">(<span>{{questoesSelecionadas.length}}</span>)</div></button>
+              </div>
+          </div>
+        </div>
+        <div class="row msg-sem-questoes" *ngIf="totalQuestoes == 0">
+          <div class="col-12">
+            <p>Desculpe, ainda não temos resultados para essa busca.</p>
+          </div>
+        </div>
+        <div>
+          <div>
+            <div id="filtroQuestoes" layout="column" *ngIf="serieSelected != -8 && totalQuestoes != 0">
+              <section class="lista-questoes" layout="row">
+                <div class="row">
+                  <div class="col-12 hide-xs">
+                    <div class="tipo-de-questao">
+                      <h5>Tipo de Questão</h5>
+                      <span class="badge-tipo" (click)="changeTipoQuestao(item.id)"
+                        [ngClass]="tipoQuestaoSelected == item.id ? 'ativo' : ''"
+                        *ngFor="let item of tipoQuestao">{{item.nome}}</span>
+                    </div>
+                  </div>
+                  <div class="col-12 show-xs">
+                    <div class="tipo-de-questao">
+                      <h5>Tipo de Questão</h5>
+                      <owl-carousel-o [options]="tiposOptions">
+                        <ng-container *ngFor="let item of tipoQuestao">
+                          <ng-template carouselSlide [id]="item.id">
+                            <span class="badge-tipo" (click)="changeTipoQuestao(item.id)"
+                            [ngClass]="tipoQuestaoSelected == item.id ? 'ativo' : ''">{{item.nome}}</span>
+                          </ng-template>
+                        </ng-container>
+                      </owl-carousel-o>
+                    </div>
+                  </div>
+                </div>
+                <div class="row tipo-questao-paginacao">
+                  <div class="col-12 col-md-6">
+                    <p class="questoes-encontradas"><span [innerHTML]="totalQuestoes">0</span> questão(ões)
+                      encontrada(s)</p>
+                  </div>
+                  <div class="paginacao col-12 col-md-6 hide-xs">
+                    <nav aria-label="pagination">
+                      <ul class="pagination">
+                        <li class="texto-paginacao">Página {{numeroPagina+1}} de {{paginas.length}}</li>
+                        <li class="page-item" [ngClass]="(classPageSelecionado + 1) == 1 ? 'page-disable' : ''"
+                          (click)="setPagina(numeroPagina - 1)">
+                          <a class="page-link" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                          </a>
+                        </li>
+                        <li class="page-item" [ngClass]="classPageSelecionado == i ? 'page-selecionado' : ''"
+                          *ngFor="let item of paginas; let i = index" (click)="setPagina(i)"
+                          [hidden]="((i + 1) < numeroPagina) || ((i - 1) > numeroPagina)">
+                          <a class="page-link">{{i + 1}}</a></li>
+                        <li class="page-item"
+                          [ngClass]="(classPageSelecionado + 1) == paginas.length ? 'page-disable' : ''"
+                          (click)="setPagina(numeroPagina + 1)">
+                          <a class="page-link" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                          </a>
+                        </li>
+                      </ul>
+                    </nav>
+                  </div>
+                </div>
+
+                <div class="row">
+                  <div class="col">
+                    <div class="questoes" id="step3">
+                      <div id="liQuestao{{item.id}}" *ngFor="let item of questoes; let i = index"
+                        class="card questao questao{{item.id}}">
+                        <a (click)="openQuestao(item,i)">
+                          <div class="card-body panelQuestao">
+                            <div class="container-fluid">
+                              <div class="row">
+                                <div class="col-10 col-sm-11">
+                                  <span class="badge">{{item.filtro.componenteCurricularNome}} >
+                                    {{item.nomeSerie}}</span>
+                                  <span class="badge badge-habilidade"
+                                    *ngFor="let hb of item.habilidades">({{hb.codigo}})</span>
+                                </div>
+                                <div class="col-1 col-sm-1 text-right">
+                                  <div [hidden]="item.usada == 0">
+                                    <div placement="auto" tooltipClass="my-custom-class" ngbTooltip="Questão já utilizada em outra prova.">
+                                      <span class="icon-azul-02"><i class="material-icons">task_alt</i></span>
+                                    </div>
+                                  </div>
+                                </div>
+                              </div>
+                              <div class="row">
+                                <div class="col-12">
+                                  <div class="questao-enunciado" [innerHTML]="item.enunciado"></div>
+                                </div>
+                              </div>
+                            </div>
+                          </div>
+                        </a>
+                      </div>
+                    </div>
+                  </div>
+                  <div class="paginacao-mobile d-md-none">
+                    <div class="paginacao col align-self-end">
+                      <nav aria-label="pagination">
+                        <ul class="pagination">
+                          <li class="texto-paginacao">Página {{numeroPagina+1}} de {{paginas.length}}</li>
+                          <li class="page-item" [ngClass]="(classPageSelecionado + 1) == 1 ? 'page-disable' : ''"
+                            (click)="setPagina(numeroPagina - 1)">
+                            <a class="page-link" aria-label="Previous">
+                              <span aria-hidden="true">&laquo;</span>
+                            </a>
+                          </li>
+                          <li class="page-item" [ngClass]="classPageSelecionado == i ? 'page-selecionado' : ''"
+                            *ngFor="let item of paginas; let i = index" (click)="setPagina(i)"
+                            [hidden]="((i + 1) < numeroPagina) || ((i - 1) > numeroPagina)">
+                            <a class="page-link">{{i + 1}}</a></li>
+                          <li class="page-item"
+                            [ngClass]="(classPageSelecionado + 1) == paginas.length ? 'page-disable' : ''"
+                            (click)="setPagina(numeroPagina + 1)">
+                            <a class="page-link" aria-label="Next">
+                              <span aria-hidden="true">&raquo;</span>
+                            </a>
+                          </li>
+                        </ul>
+                      </nav>
+                    </div>
+                  </div>
+                </div>
+              </section>
+            </div>
+          </div>
+        </div> <!-- End #step2 --->
+      </div>
+    </div>
+  </div>
+
+  <!-- DOWNLOAD PROVA -->
+  <section id="provaFinalizado" class="finalizado" *ngIf="provaFinalizada">
+    <div layout="row" layout-xs="column" layout-align="center center" class="page-title">
+      <div class="container">
+        <h4 class="show-xs">Prova salva!</h4>
+        <h4 class="hide-xs">Prova salva com sucesso!</h4>
+      </div>
+    </div>
+    <div class="modal-body finalizado">
+      <div class="container">
+        <div class="box-maior-download">
+          <p class="titulo-download">Selecione em qual formato deseja realizar o download de sua prova:</p>
+          <div class="row justify-content-center">
+            <div class="col-xs-12 col-md-5">
+              <div class="box-menor-download">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-4 col-md-4">
+                    <div class="">
+                      <img src="../../../../assets/img/doc.png" class="img-fluid" />
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-6">
+                    <div class="d-grid gap-0">
+                      <button class="btn btn-com-gabarito" (click)="downloadProvaDOC(true)">Com gabarito</button>
+                      <button class="btn btn-sem-gabarito" (click)="downloadProvaDOC(false)">Sem gabarito</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="col-xs-12 col-md-5">
+              <div class="box-menor-download">
+                <div class="row align-items-center justify-content-center">
+                  <div class="col-4 col-md-4">
+                    <div class="">
+                      <img src="../../../../assets/img/pdf.png" class="img-fluid" />
+                    </div>
+                  </div>
+                  <div class="col-6 col-md-6">
+                    <div class="d-grid gap-0">
+                      <button class="btn btn-com-gabarito" (click)="downloadProvaPDF(true)">Com gabarito</button>
+                      <button class="btn btn-sem-gabarito" (click)="downloadProvaPDF(false)">Sem gabarito</button>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+</div>
+
+<!-- MODAL VISUALIZAR QUESTAO -->
+<div class="modal modal-visualizar-prova novo-modal" id="modalQuestao" tabindex="-1" role="dialog"
+  aria-labelledby="ariaQuestao" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+      <div class="modal-header">
+        <div class="container">
+          <div layout="row" layout-align="center center">
+            <h4 class="modal-title" id="ariaQuestao">Questão</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body" [(ngModel)]="questao">
+        <div class="container">
+          <!--<h3>Enunciado</h3>-->
+          <div class="modal-box-questao modal-questao-enunciado">
+            <span class="span_geral" [innerHTML]="questao.enunciado"></span>
+            <span class="span_geral" [innerHTML]="questao.conteudo"></span>
+            <br>
+            <span class="span_geral color-blue" [innerHTML]="questao.resposta"></span>
+          </div>
+          <div class="palavra_chave" [hidden]="questao.tags == null">
+            <h6>Palavras-chave</h6>
+            <div class="modal-questao-resposta">
+              <span [innerHTML]="questao.tags"></span>
+            </div>
+          </div>
+        </div>
+      </div>
+      <div class="modal-footer btns-bottom-navigation">
+        <div class="container">
+          <div layout="row justify-content-between">
+            <div class="col">
+              <button type="button" class="btn btn-fechar" data-dismiss="modal" aria-label="Close">Fechar sem
+                salvar</button>
+              <button type="button" class="btn btn-success float-right" data-dismiss="modal"
+                [hidden]="btnRemoverQuestao == true" (click)="addQuestao(questao)">Inserir na prova</button>
+              <button type="button" class="btn btn-remover float-right" data-dismiss="modal"
+                [hidden]="btnRemoverQuestao != true" (click)="removerQuestaoProva(questao)">Remover da prova</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Modal visualizar prova -->
+<div class="modal modal-visualizar-prova novo-modal" id="modalProva" tabindex="-1" role="dialog"
+  aria-labelledby="ariaVisualizarProva" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <div class="container">
+          <div layout="row" layout-align="center center">
+            <h4 class="modal-title" id="ariaVisualizarProva">Visualizar Prova</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+          <div id="cabecalho" class="row modal-prova-header" [(ngModel)]="prova.provas.Cabecalho" *ngIf="cabecalho">
+            <div class="col-sm-8 col-md-9">
+              <img class="img-fluid" src="../../../../assets/img/cabecalho.png" />
+            </div>
+
+            <div class="col-sm-4 col-md-3">
+              <div class="row">
+                <div class="col-12">
+                  <div class="border-xs">
+                    <div class="row">
+                      <div class="col-5 col-md-12">
+                        <div class="modal-logo">
+                          <div class="box" [(ngModel)]="logo">
+                            <img [src]="logo.fullPath" />
+                          </div>
+                        </div>
+                      </div>
+                      <div class="col-7 col-md-12 align-self-center">
+                        <div class="form-group is-empty is-fileinput">
+                          <div class="btn btn-alterar-logo">
+                            <img src="../../../../assets/img/upload.svg" class="img-fluid" /> Alterar o logotipo
+                          </div>
+                          <input type="file" #file class="input-hover" (change)="uploadFile(file.files)" style="cursor: pointer;" />
+                        </div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+            <div class="row">
+              <div class="col centralizar" *ngIf="cabecalho" (click)="toggleCabecalho(false)">
+                <a style="cursor: pointer;" class="btn-remover-cabecalho"><span class="material-icons">clear</span>
+                  <p class="sublinhar">remover cabeçalho</p>
+                </a>
+              </div>
+            </div>
+          </div>
+          <div id="inserirCabecalho" class="row">
+            <div class="col centralizar">
+              <div class="col incluir-cabecalho" *ngIf="!cabecalho" (click)="toggleCabecalho(true)">
+                <a style="cursor: pointer;" class=""><span class="material-icons"
+                    style="vertical-align: middle">add</span> Incluir cabeçalho</a>
+              </div>
+            </div>
+          </div>
+          <div class="row">
+            <div class="col-12">
+              <div class="modal-prova-title">
+                <label class="form-label">Título da prova*</label>
+                <input id="tituloProva" type="text" placeholder="Exemplo: Prova - Geografia"
+                  class="form-control form-criar-questao"
+                  [ngClass]="nomeProva == null ? 'com-borda-red' : 'sem-borda-red'" [(ngModel)]="nomeProva" required>
+                <div class="aviso" [hidden]="nomeProva != null">Por favor, digite o título da prova.</div>
+              </div>
+            </div>
+            <div class="col-12">
+              <div class="modal-prova-title">
+                <label class="form-label">Turma</label>
+                <input id="turmaProva" type="text" placeholder="Exemplo: Turma C - Editora do Brasil"
+                  class="form-control form-criar-questao" [ngClass]="turma == null ? 'com-borda-red' : 'sem-borda-red'"
+                  [(ngModel)]="turma">
+              </div>
+            </div>
+            <div class="col-12">
+              <ul id="modal-sortable" class="lista-itens" ui-sortable="sortableOptions">
+                <li class="ui-state-default" *ngFor="let item of questoesSelecionadas; let i = index">
+                  <a class="excluir float-right" title="Remover" (click)="removerQuestaoProva(item)"><i
+                      class="material-icons md-24">clear</i></a>
+                  <span class="ui-state-default sortable-number">{{i + 1}}</span>
+                  <a class="open-collapse collapsed" role="button" data-toggle="collapse" href="#collapse{{item.id}}"
+                    aria-expanded="false" onclick="event.preventDefault();">
+                    <span [innerHTML]="item.enunciado"></span>
+                  </a>
+                  <div class="collapse" id="collapse{{item.id}}">
+                    <span [innerHTML]="item.conteudo"></span>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-footer btns-bottom-navigation">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-12 col-md-4">
+              <div class="total-questoes">Total de questões: <span>{{questoesSelecionadas.length}}</span></div>
+            </div>
+            <div class="col-12 col-md-8">
+              <button id="btnSalvarProva" type="button" class="btn btn-salvar float-right" data-dismiss="modal"
+                (click)="salvarProva()" [disabled]="nomeProva == null || nomeProva == '' || questoesSelecionadas == []">Fechar e salvar prova</button>
+              <button type="button" id="btnEditarProva" class="btn btn-close float-right" data-dismiss="modal">Continuar
+                editando a prova</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

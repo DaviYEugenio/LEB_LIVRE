@@ -1,0 +1,110 @@
+<!-- Modal visualizar prova -->
+<div class="modal modal-visualizar-prova novo-modal" id="modalProva" tabindex="-1" role="dialog" aria-labelledby="ariaVisualizarProva" (mouseover)="load()" aria-hidden="true">
+  <div class="modal-dialog modal-fullscreen">
+    <div class="modal-content">
+
+      <div class="modal-header">
+        <div class="container">
+          <div layout="row" layout-align="center center">
+            <h4 class="modal-title" id="ariaVisualizarProva">Visualizar Prova</h4>
+          </div>
+        </div>
+      </div>
+
+      <div class="modal-body">
+        <div class="container">
+            <div id="cabecalho" class="row modal-prova-header">
+                <div class="col-sm-8 col-md-9">
+                    <!--<img class="img-fluid" src="//www.editoradobrasil.com.br/admPortais/upload/cabecalho/{{filtro.disciplina || filtro.count}}/{{filtro.ano || filtro.count}}.gif" alt="" />-->
+                    <img class="img-fluid" src="../../../../../../assets/img/cabecalho.png" />
+                </div>
+
+                <div class="col-sm-4 col-md-3">
+                    <div class="row">
+                        <div class="col-12">
+                            <div class="border-xs">
+                                <div class="row">
+                                    <div class="col-5 col-md-12">
+                                        <div class="modal-logo">
+                                            <div class="box">
+                                                <img src="https://www.editoradobrasil.com.br/admPortais/upload/escolas/logo/logo-ebsa.gif" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="col-7 col-md-12 align-self-center">
+                                        <div class="form-group is-empty is-fileinput">
+                                            <div class="btn btn-alterar-logo">
+                                                <img src="../../../../../../assets/img/upload.svg" class="img-fluid" /> Alterar o logotipo
+                                            </div>
+                                            <input type="file" id="inputFile" class="input-hover" onchange="angular.element(this).scope().imageUpload(event)" style="cursor: pointer;" />
+
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col centralizar" (click)="toggleCabecalho(false)">
+                        <a style="cursor: pointer;" class="btn-remover"><span class="material-icons">clear</span> <p class="sublinhar">remover cabeçalho</p></a>
+                    </div>
+                </div>
+            </div>
+            <div id="inserirCabecalho" class="row">
+                <div class="col centralizar">
+                    <div class=" col incluir-cabecalho" (click)="toggleCabecalho(true)">
+                        <a style="cursor: pointer;" class=""><span class="material-icons">add</span> Incluir cabeçalho</a>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                <div class="col-12">
+                    <div class="modal-prova-title">
+                        <label class="form-label">Título da prova*</label>
+                        <input id="tituloProva" type="text" placeholder="Exemplo: Prova - Geografia" class="form-control form-criar-questao" [ngClass]="Nome == null ? 'com-borda-red' : 'sem-borda-red'" [(ngModel)]="Nome" required>
+                        <div class="aviso" [hidden]="Nome != null">Por favor, digite o título da prova.</div>
+                    </div>
+                </div>
+                <div class="col-12">
+                    <div class="modal-prova-title">
+                        <label class="form-label">Turma</label>
+                        <input  id="turmaProva" type="text" placeholder="Exemplo: Turma C - Editora do Brasil" class="form-control form-criar-questao" [ngClass]="Turma == null ? 'com-borda-red' : 'sem-borda-red'" [(ngModel)]="Turma">
+                        <!--<div class="aviso" ng-show="prova.Nome == null">Por favor, digite o título da prova.</div>-->
+                    </div>
+                </div>
+                <div>
+                    <ul id="modal-sortable" class="lista-itens" ui-sortable="sortableOptions" [(ngModel)]="questoes">
+                        <li class="ui-state-default" *ngFor="let item of questoes">
+                            <a class="excluir float-right" href="#" title="Remover" ng-click="removerQuestaoProva(item)"><i class="material-icons md-24">clear</i></a>
+                            <span class="ui-state-default sortable-number">{{index + 1}}</span>
+                            <a class="open-collapse collapsed" role="button" data-toggle="collapse" href="#collapse{{item.questao.id}}" aria-expanded="false" onclick="event.preventDefault();">
+                                <span class="text_collapse" [innerHTML]="item.questao.enunciado"></span>
+                            </a>
+                            <div class="collapse" id="collapse{{item.questao.id}}">
+                                <span [innerHTML]="item.questao.conteudo"></span>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+      </div>
+
+      <div class="modal-footer btns-bottom-navigation">
+        <div class="container">
+          <div class="row justify-content-between">
+            <div class="col-12 col-md-4">
+              <div class="total-questoes">Total de questões: <span>{{questoes.length}}</span></div>
+            </div>
+            <div class="col-12 col-md-8">
+              <button id="btnSalvarProva" type="button" class="btn btn-salvar float-right" data-dismiss="modal" (click)="salvarProva()" [disabled]="questoes.length == 0 || Nome == null || Nome == ''">Fechar e salvar prova</button>
+              <button type="button" id="btnEditarProva" class="btn btn-close float-right" data-dismiss="modal" >Continuar editando a prova</button>
+
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

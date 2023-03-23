@@ -1,0 +1,55 @@
+<section id="provaFinalizado" class="finalizado" style="display: none">
+
+  <div layout="row" layout-xs="column" layout-align="center center" class="page-title">
+      <div class="container">
+          <h4 class="show-xs">Prova salva!</h4>
+          <h4 class="hide-xs">Prova salva com sucesso!</h4>
+      </div>
+  </div>
+
+  <div class="modal-body finalizado">
+      <div class="container">
+          <div class="box-maior-download">
+              <p class="titulo-download">Selecione em qual formato deseja realizar o download de sua prova:</p>
+              <div class="row justify-content-center">
+                  <div class="col-xs-12 col-md-5">
+                      <div class="box-menor-download">
+                          <div class="row align-items-center justify-content-center">
+                              <div class="col-4 col-md-4">
+                                  <div class="">
+                                      <img src="../../../../../../assets/img/doc.png" class="img-fluid" />
+                                  </div>
+                              </div>
+                              <div class="col-6 col-md-6">
+                                  <div class="d-grid gap-0">
+                                      <button class="btn btn-com-gabarito" ng-click="downloadProvaDOC('true')">Com gabarito</button>
+                                      <button class="btn btn-sem-gabarito" ng-click="downloadProvaDOC('false')">Sem gabarito</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+                  <div class="col-xs-12 col-md-5">
+                      <div class="box-menor-download">
+                          <div class="row align-items-center justify-content-center">
+                              <div class="col-4 col-md-4">
+                                  <div class="">
+                                      <img src="../../../../../../assets/img/pdf.png" class="img-fluid" />
+                                  </div>
+                              </div>
+                              <div class="col-6 col-md-6">
+                                  <div class="d-grid gap-0">
+                                      <button class="btn btn-com-gabarito" (click)="downloadProvaPDF(true)">Com gabarito</button>
+                                      <button class="btn btn-sem-gabarito" (click)="downloadProvaPDF(false)">Sem gabarito</button>
+                                  </div>
+                              </div>
+                          </div>
+                      </div>
+                  </div>
+              </div>
+          </div>
+      </div>
+  </div>
+
+
+</section>

@@ -1,0 +1,22 @@
+<div class="container">
+<div class="posicao_banner" (mouseover)="alinharTipos()">
+  <div class="img_banner">
+    <img class="img_fundo" src="../../assets/img/img-banner.png" alt="">
+    <img class="img_fundo_mobile" src="../../assets/img/mobile-banner.png" alt="">
+  </div>
+  <div class="conteudo_banner">
+    <p [hidden]="islogged == false" class="bemvindo">Olá, <strong class="strongB">{{User_Name}}</strong>, bem-vindo(a)!</p>
+    <div [hidden]="islogged == true" class="btns">
+      <button type="button"  class="btn_cadastro" (click)="ModalCadastro()">Cadastre-se</button>
+      <button type="button" class="btn_login" (click)="ModalEntrar()">Entrar</button>
+    </div>
+    <h2 class="titulo_banner">Plataforma de materiais digitais abertos da Editora do Brasil! :)</h2>
+    <p class="texto_banner">Com conteúdos gratuitos que auxiliarão professores e gestores em seu cotidiano escolar,
+      possibilitando um trabalho amplo tanto em sala de aula quanto nos períodos atuais de educação a distância. </p>
+  </div>
+</div>
+ <app-carrosel></app-carrosel>
+<app-materiais_digitais></app-materiais_digitais>
+<app-access_bq></app-access_bq>
+<app-footer></app-footer>
+</div>

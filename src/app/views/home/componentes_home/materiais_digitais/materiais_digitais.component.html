@@ -1,0 +1,102 @@
+<div class="materiais_digitais" (mouseover)="alinharTipos()">
+  <div class="conteudo_materiais">
+    <h1 class="titulo_materiais" id="matDigitais">Acesse os materiais digitais</h1>
+    <div class="form-row mat">
+      <div>
+        <select [ngClass]="segmentoSelected != 99 ? 'form-select-ativo' : ''" [(ngModel)]="segmentoSelected"
+          class="form-select anos_iniciais" (change)="changeSegmento()">
+          <option selected value='99'>Segmento</option>
+          <!-- <option value='0'>Educação Infantil</option>
+          <option value='1'>Anos Iniciais</option>
+          <option value='5'>Anos Finais</option>
+          <option value='9'>Ensino Médio</option> -->
+          <option *ngFor="let item of listaSegmentos" value="{{item.idSegmento}}">{{item.descricao}}</option>
+        </select>
+        <div class="select" [ngClass]="segmentoSelected != 99 ? 'select-ativo' : ''"></div>
+      </div>
+      <div>
+        <select [ngClass]="segmentoSelected != 99 && componenteSelected != 99? 'form-select-ativo2' : ''"
+          [(ngModel)]="componenteSelected" class="form-select componente" [disabled]="segmentoSelected == 99"
+          (change)="changeComponente()">
+          <option selected value="99">Componente curricular</option>
+          <option *ngFor="let item of listaMateriais" value="{{item.idMateria}}">{{item.nomeMateria}}</option>
+        </select>
+        <div class="select" [ngClass]="segmentoSelected != 99 && componenteSelected != 99? 'select-ativo' : ''"></div>
+      </div>
+      <div>
+        <select [ngClass]="serieSelected != 99 ? 'form-select-ativo3' : ''" [(ngModel)]="serieSelected"
+          class="form-select ano" disabled="{{segmentoSelected == 99 || componenteSelected == 99 }}"
+          (change)="changeSerie()">
+          <option selected value="99">Ano</option>
+          <option *ngFor="let item of listaSerie" value="{{item.idSerie}}">{{item.nomeSerie}}</option>
+        </select>
+        <div class="select selectSerie" [ngClass]="serieSelected != 99 ? 'select-ativo' : ''"></div>
+      </div>
+    </div>
+  </div>
+  <div class="carrosel_conteudo">
+    <div id="conte" class="containers">
+      <owl-carousel-o [options]="customOptions">
+        <ng-template carouselSlide>
+          <div class="carrousel" style="margin-left: 120px;">
+            <button id="99" (click)="ChangeTipoConteudo(99)">Todos</button>
+          </div>
+        </ng-template>
+        <ng-template carouselSlide *ngFor="let item of listaTipoConteudoSemDuplicado">
+          <div class="carrousel">
+            <button id="{{item.idMaterial}}" (click)="ChangeTipoConteudo(item.idMaterial)">{{item.nomeMaterial}}</button>
+          </div>
+        </ng-template>
+      </owl-carousel-o>
+    </div>
+  </div>
+
+  <div class="form-row cont" style="text-align: center;">
+    <div *ngFor="let conteudo of conteudos" class="form-group col-md-3">
+      <div class="card_conteudo" [ngClass]="islogged == true ? 'card_conteudo_islogged' : ''">
+        <div class="component_card">
+          <p class="tipo_conteudo">{{conteudo.nomeMaterial}}</p>
+          <h1 class="nome_conteudo">{{conteudo.nomeArquivo.substr(0, 40)}}</h1>
+        </div>
+        <div class="card_open">
+          <h1 [hidden]="islogged == false" (click)="openModalConteudo(conteudo.idArquivo)" class="open"
+            data-id="{{conteudo.idArquivo}}">Abrir</h1>
+          <div [hidden]="islogged == true" class="padlock"><svg [hidden]="islogged == true" width="16" height="21"
+              viewBox="0 0 16 21" fill="none" xmlns="http://www.w3.org/2000/svg">
+              <path
+                d="M14 7H13V5C13 2.24 10.76 0 8 0C5.24 0 3 2.24 3 5V7H2C0.9 7 0 7.9 0 9V19C0 20.1 0.9 21 2 21H14C15.1 21 16 20.1 16 19V9C16 7.9 15.1 7 14 7ZM8 16C6.9 16 6 15.1 6 14C6 12.9 6.9 12 8 12C9.1 12 10 12.9 10 14C10 15.1 9.1 16 8 16ZM11.1 7H4.9V5C4.9 3.29 6.29 1.9 8 1.9C9.71 1.9 11.1 3.29 11.1 5V7Z"
+                fill="white" />
+            </svg></div>
+          <h1 [hidden]="islogged == true" (click)="openModalCadastro()" class="openCadastro">Cadastre-se</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+  <div class="form-row">
+    <div class="form-group col-md-12 d-md-flex justify-content-md-center">
+      <button type="button" id="vermais" (click)="VerMais()" class="btn_mais">ver mais</button>
+      <button type="button" id="vermenos" (click)="VerMenos()" class="btn_mais">ver menos</button>
+    </div>
+  </div>
+  <div class="modal" id="modal_conteudo" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" [(ngModel)]="conteudoAberto">
+
+    <div class="modal-content" style="border: none;">
+      <h1 class="titulo_atividade">{{conteudoAberto.nome}}</h1>
+      <div id="frame">
+        <iframe *ngIf="conteudoAberto.idTipoConteudo != 53" id="iframeConteudo" type="text/html" allowfullscreen="allowfullscreen"
+          [src]="linkConteudo">
+        </iframe>
+        <div *ngIf="conteudoAberto.idTipoConteudo == 16 || conteudoAberto.idTipoConteudo == 38 || conteudoAberto.idTipoConteudo == 53" class="embed-responsive embed-responsive-16by9">
+          <video controlslist="nodownload" controls="" autoplay="">
+            <source [src]="linkConteudo" type="video/mp4">
+          </video>
+        </div>
+      </div>
+      <div class="fechar">
+        <button (click)="fecharModal()" data-dismiss="modal" type="button" class="btn_close">Fechar</button>
+      </div>
+
+    </div>
+  </div>
+
+</div>

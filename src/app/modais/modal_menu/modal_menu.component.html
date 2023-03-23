@@ -1,0 +1,41 @@
+<div class="modal" id="modal_menu" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" >
+  <div class="modal-dialog">
+    <div class="modal-content">
+
+
+
+            <div class="menu" layout="row" layout-align="center center">
+              <div class="titulo__menu">
+                <h1 >Menu</h1>
+                <hr>
+              </div>
+              <a href="#" ng-click="btnSair()" class="close" data-dismiss="modal" ><i class="material-icons md-24 close_modal_menu" >close</i></a>
+            </div>
+            <div class="link_menu">
+              <a routerLink="/" (click)="bq()" class="link_bq">Banco de questões</a>
+              <br>
+              <a routerLink="/" (click)="materiais()" class="link_materiais">Materiais digitais</a>
+              <br>
+              <a routerLink="/"  (click)="contato()" class="link_contato">Fale conosco</a>
+              <br>
+
+            <div class="btns">
+              <button [hidden]="islogged" type="button"  class="btn_cadastro" (click)="ModalCadastro()">Cadastre-se</button>
+              <button [hidden]="islogged" type="button" class="btn_login" (click)="ModalEntrar()">Entrar</button>
+              <button [hidden]="!islogged" type="button" class="btn btn_sair" (click)="logout()">Sair</button>
+            </div>
+          </div>
+          <div class="icons_footer">
+            <img (click)="LinkYoutube()" class="icon" src="../../assets/img/fa6-brands_youtube.svg" alt="" style="cursor: pointer;">
+            <img (click)="LinkFacebook()" class="icon" src="../../assets/img/fa-brands_facebook-square.svg" alt="" style="cursor: pointer;">
+            <img (click)="LinkInstagram()" class="icon" src="../../assets/img/fa6-brands_instagram.svg" alt="" style="cursor: pointer;">
+          </div>
+          </div>
+        </div>
+    </div>
+
+
+    <app-modal_login></app-modal_login>
+    <app-modal_cadastro></app-modal_cadastro>
+    <app-modal_esqueci_senha></app-modal_esqueci_senha>
+    <app-modal-cadastro-sucesso></app-modal-cadastro-sucesso>

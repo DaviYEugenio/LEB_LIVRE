@@ -1,0 +1,187 @@
+@import '/node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.carousel.scss';
+@import '/node_modules/ngx-owl-carousel-o/lib/styles/scss/owl.theme.default.scss';
+.containers {
+  width: 90%;
+  margin: 40% auto;
+}
+
+.partners img {
+  transition: all .3s ease;
+}
+.hide{
+  display:none;
+}
+.partners .carrousel:hover {
+  border: 2px solid #93C547;
+  .show{
+       display: none;
+  }
+  .hide{
+    display: block;
+  }
+}
+
+.carrousel {
+  display: flex;
+  flex-direction: row;
+  justify-content: center;
+  align-items: center;
+  padding: 32px 77px;
+
+  width: 256px;
+  height: 128px;
+  left: 0px;
+  top: 0px;
+
+  background: #FFFFFF;
+  border: 1px solid #DEDEDE;
+  box-sizing: border-box;
+
+
+  box-shadow: 2px 2px 2px rgba(209, 209, 209, 0.25);
+  border-radius: 20px;
+}
+
+.img_carrousel {
+  max-width: 60%;
+  max-height: 60%;
+  margin-top: -30px;
+}
+
+.titulo_carrousel {
+  position: absolute;
+  left: 28%;
+  top: 73%;
+  bottom: 26%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+
+  color: #192A6B;
+}
+
+.atividade_carrousel {
+  position: absolute;
+  left: 17%;
+  top: 73%;
+  bottom: 26%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+
+  color: #192A6B;
+}
+
+.jogo_carrousel {
+  position: absolute;
+  top: 73%;
+  bottom: 26%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+
+  color: #192A6B;
+}
+
+.quiz_carrousel {
+  position: absolute;
+  top: 73%;
+  bottom: 26%;
+
+  font-family: 'Roboto';
+  font-style: normal;
+  font-weight: 700;
+  font-size: 18px;
+  line-height: 21px;
+
+  display: flex;
+  align-items: flex-end;
+  text-align: center;
+
+  color: #192A6B;
+}
+
+@media (max-width: 1220px) {
+  .partners {
+    margin-top: -642px;
+
+  }
+}
+
+@media (max-width: 1150px) {
+  .partners {
+    margin-top: -618px;
+
+  }
+}
+
+@media (max-width: 1080px) {
+  .partners {
+    margin-top: -600px;
+
+  }
+}
+
+@media (max-width: 1030px) {
+  .partners {
+    margin-top: -575px;
+
+  }
+}
+
+@media (max-width: 960px) {
+  .partners {
+    margin-top: -547px;
+
+  }
+}
+
+@media (max-width: 885px) {
+  .partners {
+    margin-top: -509px;
+
+  }
+}
+
+@media (max-width: 800px) {
+  .partners {
+    margin-top: -483px;
+
+  }
+}
+@media (max-width: 764px) {
+  .partners {
+    margin-top: -110px;
+
+  }
+}
+@media (max-width: 680px) {
+  .partners {
+    margin-top: -90px;
+  }
+  .containers {
+    width: 100%;
+    margin: 40% 29px;
+}
+}

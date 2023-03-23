@@ -1,0 +1,41 @@
+<div class="modal" id="modal_login" tabindex="-1" role="dialog" aria-hidden="true" data-backdrop="static" >
+  <div class="modal-dialog">
+    <div class="modal-body">
+    <div class="modal-content">
+            <div class="login" layout="row" layout-align="center center">
+              <div class="titulo__login">
+                <h1 >Login</h1>
+                <hr>
+              </div>
+              <a href="#" ng-click="btnSair()" class="close" data-dismiss="modal" ><i class="material-icons md-24" >close</i></a>
+            </div>
+
+            <form name="formLogin" (submit)="Login()">
+              <div class="form-row ">
+                <div class="form-group col-md-12">
+                  <label class="control-label">E-mail</label>
+                  <input class="form-control" id="EmailLogin" name="EmailLogin" required [(ngModel)]="Login_Usuario" placeholder="Digite o seu e-mail"/>
+                </div>
+              </div>
+              <div class="form-row ">
+                <div class="form-group col-md-12">
+                  <label class="control-label">Senha</label>
+                  <input type="password" class="form-control" id="SenhaLogin" [(ngModel)]="Senha" name="Senha" required placeholder="Digite a sua senha"/>
+                </div>
+              </div>
+              <a class="recuperar_senha" id="btnEsqueciSenha">Esqueceu sua senha?</a>
+              <div class="form-group col-md-12 d-md-flex justify-content-md-center">
+                <button type="submit" class="btn_login" id="btnLogin">Entrar</button>
+              </div>
+              <div class="form-group col-md-12 d-md-flex justify-content-md-center">
+              <div id="AlertLogin" class="alert_validacao"><p class="text_alert">Ops, dados não encontrados! :( Verifique as informações digitadas.</p></div>
+            </div>
+            </form>
+            <p class="texto_cadastre">Não tem cadastro?<a id="Cadastre-se" class="link_cadastro"> Cadastre-se</a></p>
+
+          </div>
+        </div>
+      </div>
+    </div>
+
+

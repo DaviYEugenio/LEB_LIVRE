@@ -1,0 +1,122 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use '@angular/material'as mat;
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$LEB_LIVRE-primary: mat.define-palette(mat.$indigo-palette);
+$LEB_LIVRE-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$LEB_LIVRE-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$LEB_LIVRE-theme: mat.define-light-theme((color: (primary: $LEB_LIVRE-primary,
+      accent: $LEB_LIVRE-accent,
+      warn: $LEB_LIVRE-warn,
+    )));
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+@include mat.all-component-themes($LEB_LIVRE-theme);
+
+/* You can add global styles to this file, and also import other style files */
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+// #conte .owl-item{
+//   width: 145px;
+// }
+.partners .owl-next,
+.partners .owl-prev {
+  background: transparent !important;
+}
+
+.partners .owl-theme .owl-nav {
+  margin-left: -70px;
+  margin-top: -75px;
+  display: flex;
+  justify-content: space-around;
+  width: 110%;
+}
+.partners .owl-theme .owl-nav .disabled {
+  opacity: 0;
+}
+.partners .owl-theme .owl-nav .owl-next {
+  position: absolute;
+  margin: -0.5% -49.3% 0px 530px;
+  padding: 10px 7px;
+}
+.partners .owl-theme .owl-nav .owl-prev {
+  position: absolute;
+  margin: -0.5% 148% 0px 530px;
+  padding: 10px 7px;
+}
+.partners{
+  margin-top: -675px;
+  }
+  .partners .owl-carousel .owl-item {
+    min-height: 55px;
+  }
+  @media (max-width: 900px) {
+    .partners .owl-theme .owl-nav .owl-next {
+     display: none;
+    }
+    .partners .owl-theme .owl-nav .owl-prev {
+     display: none;
+    }
+}
+
+#tipoConteudo .owl-theme .owl-nav {
+  margin-left: -100px;
+    margin-top: -43px;
+    display: flex;
+    justify-content: space-around;
+}
+#tipoConteudo .owl-theme .owl-nav .owl-next {
+  margin: 4px -68px 0px 120px;
+  width: 29px;
+}
+#tipoConteudo .owl-theme .owl-nav .owl-prev {
+  margin-top: 6px;
+  width: 29px;
+}
+#tipoConteudo .owl-next,
+#tipoConteudo .owl-prev {
+  background: white !important;
+}
+#tipoConteudo .owl-theme .owl-nav .disabled {
+  opacity: 1;
+}
+#tipoConteudo .carrousel {
+  margin-left: 40px
+}
+#tipoConteudo .owl-carousel.owl-drag .owl-item {
+  touch-action: pan-y;
+  -webkit-user-select: none;
+  user-select: none;
+  width: 126px;
+}
+@media (max-width: 500px) {
+//   #conte .owl-item{
+//   width: 135px;
+// }
+}
+
+
